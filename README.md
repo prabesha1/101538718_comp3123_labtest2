@@ -1,70 +1,186 @@
-# Getting Started with Create React App
+# Weather App - COMP3123 Lab Test 2
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+**Student Name:** Prabesh Shrestha  
+**Student ID:** 101538718  
+**Course:** COMP3123 - Full Stack Development  
+**Date:** November 27, 2024
 
-## Available Scripts
+---
 
-In the project directory, you can run:
+## 📖 Project Overview
 
-### `npm start`
+A modern React weather application that displays real-time weather information for cities worldwide using the OpenWeatherMap API. The app features a beautiful glassmorphism UI design with smooth animations and a fully responsive layout.
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+---
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+## ✨ Features
 
-### `npm test`
+- 🔍 Search weather by city name
+- 🌡️ Display current temperature with min/max values
+- 💨 Show detailed weather information (humidity, pressure, wind speed)
+- ☀️ Dynamic weather icons
+- 🎨 Modern glassmorphism UI design
+- 📱 Fully responsive layout
+- ⚡ Real-time weather updates
+- ⚠️ Error handling with user-friendly messages
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+---
 
-### `npm run build`
+## 🛠️ Technologies Used
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+- **React** (Hooks: useState, useEffect)
+- **JavaScript (ES6+)**
+- **CSS3** (Glassmorphism effects, animations)
+- **OpenWeatherMap API**
+- **Create React App**
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+---
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+## 📸 Application Screenshots
 
-### `npm run eject`
+### Home Screen - Default View (Toronto)
+![Home Screen](./screenshots/home.png)
 
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
+### Search Functionality - City Search
+![Search Feature 1](./screenshots/search.png)
 
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+### Search Results - Different City
+![Search Feature 2](./screenshots/search2.png)
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
+---
 
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
+## 📁 Project Structure
 
-## Learn More
+```
+101538718_comp3123_labtest2/
+├── public/
+│   ├── index.html
+│   ├── favicon.ico
+│   └── manifest.json
+├── src/
+│   ├── components/
+│   │   ├── SearchBar.jsx      # Search input component
+│   │   └── WeatherCard.jsx    # Weather display component
+│   ├── App.js                  # Main application
+│   ├── App.css                 # Styles with glassmorphism
+│   ├── index.js                # Entry point
+│   └── index.css               # Global styles
+├── screenshots/                # Application screenshots
+├── package.json
+└── README.md
+```
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+---
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+## Installation & Setup
 
-### Code Splitting
+### Prerequisites
+- Node.js (v14 or higher)
+- npm package manager
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
+### Steps to Run
 
-### Analyzing the Bundle Size
+1. **Clone the repository**
+```bash
+git clone <repository-url>
+cd 101538718_comp3123_labtest2
+```
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
+2. **Install dependencies**
+```bash
+npm install
+```
 
-### Making a Progressive Web App
+3. **Start development server**
+```bash
+npm start
+```
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
+The app will open at [http://localhost:3000](http://localhost:3000)
 
-### Advanced Configuration
+4. **Build for production**
+```bash
+npm run build
+```
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
+---
 
-### Deployment
+## 🌐 API Integration
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
+**API Used:** OpenWeatherMap Current Weather Data API
 
-### `npm run build` fails to minify
+- **Endpoint:** `https://api.openweathermap.org/data/2.5/weather`
+- **Documentation:** [OpenWeatherMap Docs](https://openweathermap.org/current)
+- **Data Format:** JSON
+- **Units:** Metric (Celsius, m/s)
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+### API Response Data:
+- Current temperature
+- Min/Max temperature
+- Feels like temperature
+- Weather condition and description
+- Humidity percentage
+- Atmospheric pressure
+- Wind speed
+- Weather icons
+
+---
+
+## 🎯 React Concepts Implemented
+
+### State Management (useState)
+- `city` - Current city name
+- `weatherData` - API response data
+- `loading` - Loading state
+- `error` - Error messages
+
+### Side Effects (useEffect)
+- Fetches Toronto weather on initial load
+- Dependency array ensures single execution
+
+### Component Architecture
+- **SearchBar** - Handles city search input
+- **WeatherCard** - Displays weather information
+- Props passed between parent and child components
+
+### Key Features
+- Async/await for API calls
+- Conditional rendering (loading, error, data states)
+- Form handling with event prevention
+- Error handling with try-catch blocks
+
+---
+
+## 🎨 Design Highlights
+
+### Glassmorphism Effect
+- Backdrop blur filters
+- Semi-transparent backgrounds
+- Layered shadows for depth
+- Smooth hover animations
+
+### Responsive Design
+- Mobile-first approach
+- Flexible layouts with Flexbox
+- Media queries for different screen sizes
+- Touch-friendly interface
+
+### Color Scheme
+- Background: Navy gradient (#1a1f36 → #3d4b7d)
+- Accent: Light blue (#8ab4f8)
+- Text: White with opacity variations
+
+---
+
+
+## 👨‍💻 Author
+
+**Prabesh Shrestha**  
+Student ID: 101538718  
+George Brown College  
+COMP3123 - Full Stack Development
+
+---
+
+
+**Last Updated:** November 27, 2024

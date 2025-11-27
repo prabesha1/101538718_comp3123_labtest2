@@ -1,23 +1,72 @@
-import logo from './logo.svg';
+import { useState, useEffect } from 'react';
+import SearchBar from './components/SearchBar';
+import WeatherCard from './components/WeatherCard';
 import './App.css';
 
 function App() {
+  const [city, setCity] = useState('');
+  const [weatherData, setWeatherData] = useState(null);
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState(null);
+
+  const API_KEY = '4ea4fe65e25be4de2fc6fbee6e730add';
+
+  const fetchWeather = async (cityName) => {
+    setLoading(true);
+    setError(null);
+
+    try {
+      const response = await fetch(
+        `https://api.openweathermap.org/data/2.5/weather?q=${cityName}&appid=${API_KEY}&units=metric`
+      );
+
+      const data = await response.json();
+
+      if (!response.ok) {
+        throw new Error(data.message || 'City not found');
+      }
+
+      setWeatherData(data);
+      setCity(cityName);
+    } catch (err) {
+      setError(err.message);
+      setWeatherData(null);
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  useEffect(() => {
+    fetchWeather('Toronto');
+  }, []);
+
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      <div className="main-content">
+        <div className="container">
+          <h1 className="app-title">Weather App</h1>
+          {city && <p className="current-city">Currently showing: {city}</p>}
+          <SearchBar onSearch={fetchWeather} />
+
+          {loading && <p className="loading">Loading...</p>}
+          {error && (
+            <div className="error">
+              <p><strong>Error:</strong> {error}</p>
+              {error.includes('Invalid API key') && (
+                <div className="error-help">
+                  <p>Check: <a href="https://home.openweathermap.org/api_keys" target="_blank" rel="noopener noreferrer">API Keys Dashboard</a></p>
+                </div>
+              )}
+            </div>
+          )}
+          {weatherData && !loading && <WeatherCard city={city} data={weatherData} />}
+        </div>
+      </div>
+
+      <footer className="app-footer">
+        <p className="student-name">Prabesh Shrestha</p>
+        <p className="student-id">101538718</p>
+      </footer>
     </div>
   );
 }

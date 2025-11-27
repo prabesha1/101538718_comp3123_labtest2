@@ -11,6 +11,8 @@
 
 A modern React weather application that displays real-time weather information for cities worldwide using the OpenWeatherMap API. The app features a beautiful glassmorphism UI design with smooth animations and a fully responsive layout.
 
+**🌐 Live Demo:** [https://101538718-comp3123-labtest2.vercel.app/](https://101538718-comp3123-labtest2.vercel.app/)
+
 ---
 
 ## ✨ Features

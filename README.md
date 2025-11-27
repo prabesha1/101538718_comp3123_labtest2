@@ -19,6 +19,7 @@ A modern React weather application that displays real-time weather information f
 
 - 🔍 Search weather by city name
 - 🌡️ Display current temperature with min/max values
+- 📅 5-day weather forecast with daily predictions
 - 💨 Show detailed weather information (humidity, pressure, wind speed)
 - ☀️ Dynamic weather icons
 - 🎨 Modern glassmorphism UI design
@@ -41,13 +42,13 @@ A modern React weather application that displays real-time weather information f
 ## 📸 Application Screenshots
 
 ### Home Screen - Default View (Toronto)
-![Home Screen](./screenshots/home.png)
+![Home Screen](./screenshots/home.png?v=2)
 
 ### Search Functionality - City Search
-![Search Feature 1](./screenshots/search.png)
+![Search Feature 1](./screenshots/search.png?v=2)
 
 ### Search Results - Different City
-![Search Feature 2](./screenshots/search2.png)
+![Search Feature 2](./screenshots/search2.png?v=2)
 
 ---
 
@@ -62,7 +63,7 @@ A modern React weather application that displays real-time weather information f
 ├── src/
 │   ├── components/
 │   │   ├── SearchBar.jsx      # Search input component
-│   │   └── WeatherCard.jsx    # Weather display component
+│   │   └── WeatherCard.jsx    # Weather display with 5-day forecast
 │   ├── App.js                  # Main application
 │   ├── App.css                 # Styles with glassmorphism
 │   ├── index.js                # Entry point
@@ -109,10 +110,12 @@ npm run build
 
 ## 🌐 API Integration
 
-**API Used:** OpenWeatherMap Current Weather Data API
+**API Used:** OpenWeatherMap API
 
-- **Endpoint:** `https://api.openweathermap.org/data/2.5/weather`
-- **Documentation:** [OpenWeatherMap Docs](https://openweathermap.org/current)
+### Endpoints:
+- **Current Weather:** `https://api.openweathermap.org/data/2.5/weather`
+- **5-Day Forecast:** `https://api.openweathermap.org/data/2.5/forecast`
+- **Documentation:** [OpenWeatherMap Docs](https://openweathermap.org/api)
 - **Data Format:** JSON
 - **Units:** Metric (Celsius, m/s)
 
@@ -125,6 +128,7 @@ npm run build
 - Atmospheric pressure
 - Wind speed
 - Weather icons
+- 5-day forecast (3-hour intervals)
 
 ---
 
@@ -132,7 +136,8 @@ npm run build
 
 ### State Management (useState)
 - `city` - Current city name
-- `weatherData` - API response data
+- `weatherData` - Current weather API response
+- `forecastData` - 5-day forecast API response
 - `loading` - Loading state
 - `error` - Error messages
 
@@ -142,7 +147,7 @@ npm run build
 
 ### Component Architecture
 - **SearchBar** - Handles city search input
-- **WeatherCard** - Displays weather information
+- **WeatherCard** - Displays current weather and 5-day forecast in one unified card
 - Props passed between parent and child components
 
 ### Key Features

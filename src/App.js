@@ -6,6 +6,7 @@ import './App.css';
 function App() {
   const [city, setCity] = useState('');
   const [weatherData, setWeatherData] = useState(null);
+  const [forecastData, setForecastData] = useState(null);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
 
@@ -16,21 +17,29 @@ function App() {
     setError(null);
 
     try {
-      const response = await fetch(
+      const weatherResponse = await fetch(
         `https://api.openweathermap.org/data/2.5/weather?q=${cityName}&appid=${API_KEY}&units=metric`
       );
 
-      const data = await response.json();
+      const weatherData = await weatherResponse.json();
 
-      if (!response.ok) {
-        throw new Error(data.message || 'City not found');
+      if (!weatherResponse.ok) {
+        throw new Error(weatherData.message || 'City not found');
       }
 
-      setWeatherData(data);
+      const forecastResponse = await fetch(
+        `https://api.openweathermap.org/data/2.5/forecast?q=${cityName}&appid=${API_KEY}&units=metric`
+      );
+
+      const forecastData = await forecastResponse.json();
+
+      setWeatherData(weatherData);
+      setForecastData(forecastData);
       setCity(cityName);
     } catch (err) {
       setError(err.message);
       setWeatherData(null);
+      setForecastData(null);
     } finally {
       setLoading(false);
     }
@@ -59,7 +68,7 @@ function App() {
               )}
             </div>
           )}
-          {weatherData && !loading && <WeatherCard city={city} data={weatherData} />}
+          {weatherData && !loading && <WeatherCard city={city} data={weatherData} forecastData={forecastData} />}
         </div>
       </div>
 

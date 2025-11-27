@@ -1,10 +1,29 @@
-function WeatherCard({ city, data }) {
+function WeatherCard({ city, data, forecastData }) {
   const { main, weather, wind, sys } = data;
 
   const description = weather[0]?.description;
   const mainCondition = weather[0]?.main;
   const iconCode = weather[0]?.icon;
   const iconUrl = `https://openweathermap.org/img/wn/${iconCode}@2x.png`;
+
+  const getDailyForecasts = () => {
+    if (!forecastData || !forecastData.list) return [];
+
+    const dailyData = {};
+
+    forecastData.list.forEach(item => {
+      const date = new Date(item.dt * 1000);
+      const dayKey = date.toLocaleDateString('en-US', { weekday: 'short', month: 'short', day: 'numeric' });
+
+      if (!dailyData[dayKey] || item.dt_txt.includes('12:00:00')) {
+        dailyData[dayKey] = item;
+      }
+    });
+
+    return Object.values(dailyData).slice(0, 5);
+  };
+
+  const forecasts = getDailyForecasts();
 
   return (
     <div className="weather-card">
@@ -32,6 +51,33 @@ function WeatherCard({ city, data }) {
           <p>Wind: {wind.speed} m/s</p>
         </div>
       </div>
+
+      {forecasts.length > 0 && (
+        <div className="forecast-section">
+          <h3 className="forecast-title">5-Day Forecast</h3>
+          <div className="forecast-grid">
+            {forecasts.map((forecast, index) => {
+              const date = new Date(forecast.dt * 1000);
+              const dayName = date.toLocaleDateString('en-US', { weekday: 'short' });
+              const dateStr = date.toLocaleDateString('en-US', { month: 'short', day: 'numeric' });
+
+              return (
+                <div key={index} className="forecast-item">
+                  <p className="forecast-day">{dayName}</p>
+                  <p className="forecast-date">{dateStr}</p>
+                  <img
+                    src={`https://openweathermap.org/img/wn/${forecast.weather[0].icon}@2x.png`}
+                    alt={forecast.weather[0].description}
+                    className="forecast-icon"
+                  />
+                  <p className="forecast-temp">{Math.round(forecast.main.temp)}°C</p>
+                  <p className="forecast-desc">{forecast.weather[0].main}</p>
+                </div>
+              );
+            })}
+          </div>
+        </div>
+      )}
     </div>
   );
 }
